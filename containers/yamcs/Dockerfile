@@ -1,6 +1,12 @@
 FROM maven:3.6-openjdk-11
 
+RUN useradd -m yamcs && \
+    mkdir /yamcs && \
+    chown yamcs:yamcs /yamcs
+
 WORKDIR /yamcs
+
+USER yamcs
 
 # Clone the quickstart repository
 RUN git clone https://github.com/yamcs/quickstart.git

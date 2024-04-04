@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: <folder-name>
+  labels:
+    app: <folder-name>
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: <folder-name>
+  template:
+    metadata:
+      labels:
+        app: <folder-name>
+    spec:
+      containers:
+      - name: <folder-name>
+        image: quay.io/rhnspdev/<folder-name>:latest
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: <folder-name>
+spec:
+  selector:
+    app: <folder-name>
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
